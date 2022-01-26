@@ -7,8 +7,11 @@ botaoAdicionar.addEventListener("click", function(e) {
     var paciente = obtemPacientedoForm(form);
     var pacienteTr = montaTr(paciente);
     
-    if (!validaPaciente(paciente)) {
-        alert("Paciente com peso inválido!");
+    var error = validaPaciente(paciente);
+
+    if (error.length > 0) {
+        var mensagemErro = document.querySelector("#mensagem-erro");
+        mensagemErro.textContent = "Atenção: " + error;
         return;
     }
 
@@ -50,8 +53,8 @@ function montaTd(dado, classe) {
 
 function validaPaciente(paciente) {
     if(validaPeso(paciente.peso)){
-        return true;
+        return "";
     } else {
-        return false;
+        return "O peso é inválido";
     }
 }
